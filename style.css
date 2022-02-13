@@ -48,3 +48,7 @@ button {
     border-radius: 5px;
 }
 
+.selectedBtn {
+    border: 3px outset #f0f;
+}
+

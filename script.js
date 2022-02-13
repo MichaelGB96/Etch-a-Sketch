@@ -24,6 +24,10 @@ function deleteGrid() {
 }
 
 function paint() {
+    if (eraseBtn.classList[0]) {
+        eraseBtn.classList.remove('selectedBtn');
+    } 
+    pencilBtn.classList.add('selectedBtn');
     divs.forEach(div => {
         div.addEventListener('mouseenter', e => {
                 e.target.style.backgroundColor = 'black';         
@@ -32,6 +36,10 @@ function paint() {
 }
 
 function paintWhite() {
+    if (pencilBtn.classList[0]) {
+        pencilBtn.classList.remove('selectedBtn');
+    } 
+    eraseBtn.classList.add('selectedBtn');
     divs.forEach(div => {
         div.addEventListener('mouseenter', e => {
                 e.target.style.backgroundColor = 'white';
@@ -45,15 +53,13 @@ function erase() {
     })
 }
 
-createGrid()
-paint()
 
 let body = document.querySelector('body');
 let buttons = document.createElement('div');
 body.insertBefore(buttons, body.children[0])
 let resetBtn = document.createElement('button');
 buttons.appendChild(resetBtn)
-resetBtn.textContent = 'Set new canvas'
+resetBtn.textContent = 'New canvas'
 let eraseAllBtn = document.createElement('button');
 buttons.appendChild(eraseAllBtn)
 eraseAllBtn.textContent = 'Erase all'
@@ -81,7 +87,23 @@ function resetGrid() {
     paint()
 }
 
+// hovering effect for the buttons
+buttonsList = [resetBtn, eraseAllBtn, eraseBtn, pencilBtn];
 
+buttonsList.forEach(button => {
+    button.addEventListener('mouseenter', e=> {
+        e.target.style.backgroundColor = '#ccc'
+    })
+})
+
+buttonsList.forEach(button => {
+    button.addEventListener('mouseleave', e=> {
+        e.target.style.backgroundColor = 'white'
+    })
+})
+
+createGrid()
+paint()
 
 
 
