@@ -26,7 +26,10 @@ function deleteGrid() {
 function paint() {
     if (eraseBtn.classList[0]) {
         eraseBtn.classList.remove('selectedBtn');
-    } 
+    } else if (pencilMixBtn.classList[0]) {
+        pencilMixBtn.classList.remove('selectedBtn');
+    }
+
     pencilBtn.classList.add('selectedBtn');
     divs.forEach(div => {
         div.addEventListener('mouseenter', e => {
@@ -35,10 +38,26 @@ function paint() {
     })
 }
 
+function paintRandom() {
+    if (eraseBtn.classList[0]) {
+        eraseBtn.classList.remove('selectedBtn');
+    } else if (pencilBtn.classList[0]) {
+        pencilBtn.classList.remove('selectedBtn');
+    }
+    pencilMixBtn.classList.add('selectedBtn');
+    divs.forEach(div => {
+        div.addEventListener('mouseenter', e => {
+                e.target.style.backgroundColor = randomizeRGB();         
+        })
+    })
+}
+
 function paintWhite() {
     if (pencilBtn.classList[0]) {
         pencilBtn.classList.remove('selectedBtn');
-    } 
+    } else if (pencilMixBtn.classList[0]) {
+        pencilMixBtn.classList.remove('selectedBtn');
+    }
     eraseBtn.classList.add('selectedBtn');
     divs.forEach(div => {
         div.addEventListener('mouseenter', e => {
@@ -51,6 +70,14 @@ function erase() {
     divs.forEach(div => {
         div.style.backgroundColor = 'white';
     })
+}
+
+function randomizeRGB() {  
+    let randomR = Math.floor(Math.random()*255)
+    let randomG = Math.floor(Math.random()*255)
+    let randomB = Math.floor(Math.random()*255)
+    let rgbString = `rgb(${randomR},${randomG},${randomB})`;
+    return rgbString;
 }
 
 
@@ -68,12 +95,16 @@ buttons.appendChild(eraseBtn)
 eraseBtn.textContent = 'Eraser'
 let pencilBtn = document.createElement('button');
 buttons.appendChild(pencilBtn)
-pencilBtn.textContent = 'Pencil'
+pencilBtn.textContent = 'Black'
+let pencilMixBtn = document.createElement('button');
+buttons.appendChild(pencilMixBtn)
+pencilMixBtn.textContent = 'Random color'
 
 resetBtn.addEventListener('click', resetGrid)
 eraseAllBtn.addEventListener('click', erase)
 eraseBtn.addEventListener('click', paintWhite)
 pencilBtn.addEventListener('click', paint)
+pencilMixBtn.addEventListener('click', paintRandom)
 
 function resetGrid() {
     deleteGrid()
