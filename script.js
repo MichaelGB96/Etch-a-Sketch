@@ -1,6 +1,6 @@
 const container = document.querySelector('.container');
 let divs = [];
-let maxSideSq = 16;
+let maxSideSq = 4;
 
 function createGrid() {
     for (i=0; i<maxSideSq; i++) {
@@ -47,7 +47,9 @@ function paintRandom() {
     pencilMixBtn.classList.add('selectedBtn');
     divs.forEach(div => {
         div.addEventListener('mouseenter', e => {
-                e.target.style.backgroundColor = randomizeRGB();         
+            console.log(e.target.style.backgroundColor)
+            e.target.style.backgroundColor = randomizeRGB();         
+            console.log(e.target.style.backgroundColor)
         })
     })
 }
@@ -81,9 +83,9 @@ function randomizeRGB() {
 }
 
 
-let body = document.querySelector('body');
+let main = document.querySelector('.main');
 let buttons = document.createElement('div');
-body.insertBefore(buttons, body.children[0])
+main.insertBefore(buttons, main.children[0])
 let resetBtn = document.createElement('button');
 buttons.appendChild(resetBtn)
 resetBtn.textContent = 'New canvas'
@@ -108,7 +110,7 @@ pencilMixBtn.addEventListener('click', paintRandom)
 
 function resetGrid() {
     deleteGrid()
-    userSideSqSelection = prompt('Set the numer of squares per side for the new grid (max 100 squares per side)', 16)
+    userSideSqSelection = prompt('Set the number of squares per side for the new grid (max 100 squares per side)', 16)
     if (userSideSqSelection>100) {
         maxSideSq = 100;
     } else {
@@ -119,17 +121,17 @@ function resetGrid() {
 }
 
 // hovering effect for the buttons
-buttonsList = [resetBtn, eraseAllBtn, eraseBtn, pencilBtn];
+buttonsList = [resetBtn, eraseAllBtn, eraseBtn, pencilBtn, pencilMixBtn];
 
 buttonsList.forEach(button => {
     button.addEventListener('mouseenter', e=> {
-        e.target.style.backgroundColor = '#ccc'
+        e.target.classList.add('hoveredBtn')
     })
 })
 
 buttonsList.forEach(button => {
     button.addEventListener('mouseleave', e=> {
-        e.target.style.backgroundColor = 'white'
+        e.target.classList.remove('hoveredBtn')
     })
 })
 
